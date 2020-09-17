@@ -13,6 +13,7 @@
 		08E6CE422511DC6D00681E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08E6CE402511DC6D00681E96 /* Main.storyboard */; };
 		08E6CE442511DC6E00681E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08E6CE432511DC6E00681E96 /* Assets.xcassets */; };
 		08E6CE472511DC6E00681E96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08E6CE452511DC6E00681E96 /* LaunchScreen.storyboard */; };
+		08F3DF5725132A170058F710 /* ImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F3DF5625132A170058F710 /* ImageZoomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		08E6CE432511DC6E00681E96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08E6CE462511DC6E00681E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08E6CE482511DC6E00681E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08F3DF5625132A170058F710 /* ImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				08E6CE3A2511DC6D00681E96 /* AppDelegate.swift */,
 				08E6CE3C2511DC6D00681E96 /* SceneDelegate.swift */,
 				08E6CE3E2511DC6D00681E96 /* ViewController.swift */,
+				08F3DF5625132A170058F710 /* ImageZoomViewController.swift */,
 				08E6CE402511DC6D00681E96 /* Main.storyboard */,
 				08E6CE432511DC6E00681E96 /* Assets.xcassets */,
 				08E6CE452511DC6E00681E96 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				08E6CE3F2511DC6D00681E96 /* ViewController.swift in Sources */,
 				08E6CE3B2511DC6D00681E96 /* AppDelegate.swift in Sources */,
 				08E6CE3D2511DC6D00681E96 /* SceneDelegate.swift in Sources */,
+				08F3DF5725132A170058F710 /* ImageZoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

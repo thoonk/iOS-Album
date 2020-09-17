@@ -55,6 +55,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
         case .restricted:
             print("접근 제한")
+     
+        case .limited:
+            print("접근 제한")
+        @unknown default:
+            print("default")
         }
         
         PHPhotoLibrary.shared().register(self)
@@ -103,6 +108,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+        guard let nextViewController: ImageZoomViewController = segue.destination as? ImageZoomViewController else{
+            return
+        }
+        
+        guard let cell: UITableViewCell = sender as? UITableViewCell else{
+            return
+        }
+        
+        guard let index: IndexPath = self.tableView.indexPath(for: cell) else{
+            return
+        }
+        nextViewController.asset = self.fetchResult[index.row]
+     }
+     
     
 }
 
