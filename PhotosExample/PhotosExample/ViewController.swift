@@ -16,6 +16,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let cellIdentifier: String = "cell"
     
+    @IBAction func touchUpRefreshButton(_ sender: UIBarButtonItem) {
+        self.tableView.reloadSections(IndexSet(0...0), with: .automatic)
+    }
+    
     func requestCollection(){
         let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         guard let cameraRollCollection = cameraRoll.firstObject else{
