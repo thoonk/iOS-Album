@@ -125,10 +125,10 @@
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="104.46428571428571"/>
         </scene>
-        <!--View Controller-->
+        <!--Image View Controller-->
         <scene sceneID="a7H-tx-dLr">
             <objects>
-                <viewController id="3c8-nq-3mI" sceneMemberID="viewController">
+                <viewController id="3c8-nq-3mI" customClass="ImageViewController" customModule="iOS_ProjectD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d24-th-Rl1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -143,14 +143,14 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pictureCell" id="uYx-7Q-dcj">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="uYx-7Q-dcj" customClass="ImagesCollectionViewCell" customModule="iOS_ProjectD" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Kjt-At-3JQ">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qd8-1P-Ipl">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qd8-1P-Ipl">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                 </imageView>
                                             </subviews>
@@ -162,10 +162,15 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="imageView" destination="Qd8-1P-Ipl" id="291-lW-l9E"/>
                                             <segue destination="1AZ-Yt-dnj" kind="show" identifier="toAsset" id="TwA-vL-ybB"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="3c8-nq-3mI" id="orJ-gT-rdd"/>
+                                    <outlet property="delegate" destination="3c8-nq-3mI" id="f0d-YN-bOS"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eaD-2s-Xkb"/>
@@ -177,7 +182,21 @@
                             <constraint firstItem="eaD-2s-Xkb" firstAttribute="bottom" secondItem="siv-U0-3dD" secondAttribute="bottom" id="nWl-Sd-Nzx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="W36-KG-OQq"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" systemItem="action" id="raC-Jp-4DM"/>
+                        <barButtonItem title="최신순/과거순" width="335.5" id="X74-Bc-ZA4"/>
+                        <barButtonItem systemItem="trash" id="1LY-ik-st7"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="W36-KG-OQq">
+                        <barButtonItem key="rightBarButtonItem" title="선택" id="e4h-4v-fkh"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="actionBarButtonItem" destination="raC-Jp-4DM" id="QBg-t6-E43"/>
+                        <outlet property="collectionView" destination="siv-U0-3dD" id="ZRH-Kp-WXZ"/>
+                        <outlet property="sortBarButtonItem" destination="X74-Bc-ZA4" id="37d-Fe-Ybn"/>
+                        <outlet property="trashBarButtonItem" destination="1LY-ik-st7" id="SOz-Uq-FSh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LRf-Gx-n1K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

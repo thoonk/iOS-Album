@@ -133,5 +133,32 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             assetName.append(album[i].localizedTitle!)
         }
     }
+    
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        
+        if segue.identifier == "toAlbum" {
+            guard let nextController: ImageViewController = segue.destination as? ImageViewController else{
+                return
+            }
+            guard let cell: AlbumCollectionViewCell = sender as? AlbumCollectionViewCell else {
+                return
+            }
+            
+            guard let index: IndexPath = self.collectionView.indexPath(for: cell) else{
+                return
+            }
+            
+            nextController.images = albumAsset[index.item]
+            nextController.albumName = self.assetName[index.item]
+            nextController.albumIndex = index.item
+        }
+    }
 }
 
