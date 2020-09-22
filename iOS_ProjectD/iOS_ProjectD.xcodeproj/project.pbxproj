@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0805110D2514F85000898C96 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805110C2514F85000898C96 /* AlbumCollectionViewCell.swift */; };
 		080CDC122518A1B10066B4FC /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080CDC112518A1B10066B4FC /* ImagesCollectionViewCell.swift */; };
+		089E85D4251A2A12008C48C1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E85D3251A2A12008C48C1 /* DetailViewController.swift */; };
 		08A91F562514E450000EED18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A91F552514E450000EED18 /* AppDelegate.swift */; };
 		08A91F582514E450000EED18 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A91F572514E450000EED18 /* SceneDelegate.swift */; };
 		08A91F5A2514E450000EED18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A91F592514E450000EED18 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		0805110C2514F85000898C96 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		080CDC112518A1B10066B4FC /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		089E85D3251A2A12008C48C1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		08A91F522514E450000EED18 /* iOS_ProjectD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_ProjectD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A91F552514E450000EED18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A91F572514E450000EED18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				08A91F572514E450000EED18 /* SceneDelegate.swift */,
 				08A91F592514E450000EED18 /* ViewController.swift */,
 				08B17EEC2517886B00337544 /* ImageViewController.swift */,
+				089E85D3251A2A12008C48C1 /* DetailViewController.swift */,
 				080CDC112518A1B10066B4FC /* ImagesCollectionViewCell.swift */,
 				08A91F5B2514E450000EED18 /* Main.storyboard */,
 				0805110C2514F85000898C96 /* AlbumCollectionViewCell.swift */,
@@ -152,6 +155,7 @@
 				08A91F562514E450000EED18 /* AppDelegate.swift in Sources */,
 				080CDC122518A1B10066B4FC /* ImagesCollectionViewCell.swift in Sources */,
 				08A91F582514E450000EED18 /* SceneDelegate.swift in Sources */,
+				089E85D4251A2A12008C48C1 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
