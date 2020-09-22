@@ -15,7 +15,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var sortBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var trashBarButtonItem: UIBarButtonItem!
     
-
+    
     var images: PHFetchResult<PHAsset>!
     var albumName: String?
     var albumIndex: Int?
@@ -28,11 +28,12 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     var multipleSelectButtonItem: UIBarButtonItem!
     // imageCell 터치 시 show되는 것을 막기 위함
     var selectCheck: Bool = false
-
+    // 삭제할 이미지 인덱스
+    var delIndex = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         let flowlayout = UICollectionViewFlowLayout()
@@ -77,8 +78,25 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationItem.rightBarButtonItem = multipleSelectButtonItem
         
         self.collectionView.allowsMultipleSelection = false
-        
+        delIndex.removeAll()
         self.collectionView.reloadData()
+    }
+    
+    @IBAction func trashBarButton(_ sender: UIBarButtonItem){
+        var asset = [PHAsset]()
+        
+        for i in delIndex {
+            asset.append(images[i])
+        }
+        
+        // 삭제 확인 다이얼로그
+        PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets(asset as NSArray)}, completionHandler: nil)
+        // 삭제 이후 네비게이션바버튼아이템 초기화
+        self.actionBarButtonItem.isEnabled = false
+        self.trashBarButtonItem.isEnabled = false
+        self.navigationItem.hidesBackButton = false
+        self.navigationItem.rightBarButtonItem = multipleSelectButtonItem
+        self.collectionView.allowsMultipleSelection = false
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -96,13 +114,43 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
             cell.imageView?.image = image
         })
         
-//        cell.backgroundColor = UIColor.white
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        if !selectCheck{
+            
+            guard let nextController = storyboard?.instantiateViewController(withIdentifier: "toDetail" /*Storyboard ID attribute*/) else{
+                return
+            }
+            
+            guard let detailView: DetailViewController = nextController as? DetailViewController else{
+                return
+            }
+            
+            guard let cell: ImagesCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ImagesCollectionViewCell else {
+                return
+            }
+            detailView.detailImage = cell.imageView.image
+            
+            detailView.detailAsset = images[indexPath.item]
+            self.navigationController?.pushViewController(nextController, animated: true)
+        } else{
+            if !delIndex.contains(indexPath.item){
+                delIndex.append(indexPath.item)
+            }
+            // 다중 선택한 cell 흐리게 함
+            collectionView.cellForItem(at: indexPath)?.alpha = 0.5
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.alpha = 1
+        
+        if !delIndex.isEmpty{
+            let index: Int! = delIndex.firstIndex(of: indexPath.item)
+            delIndex.remove(at: index)
+        }
     }
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
@@ -111,9 +159,36 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         images = changes.fetchResultAfterChanges
         
         OperationQueue.main.addOperation {
-            self.collectionView.reloadSections(IndexSet(0...0))
+            self.collectionView.reloadData()
         }
     }
-   
-
+    
+    
+    //    // MARK: - Navigation
+    //
+    //    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        // Get the new view controller using segue.destination.
+    //        // Pass the selected object to the new view controller.
+    //        if selectCheck == true{
+    //            if segue.identifier == "toDetail"{
+    //                guard let nextController: DetailViewController = segue.destination as? DetailViewController else{
+    //                    return
+    //                }
+    //
+    //                guard let cell: ImagesCollectionViewCell = sender as? ImagesCollectionViewCell else{
+    //                    return
+    //                }
+    //
+    //                guard let index: IndexPath = self.collectionView.indexPath(for: cell) else{
+    //                    return
+    //                }
+    //
+    //                nextController.detailImage = cell.imageView.image
+    //                nextController.detailAsset = images[index.item]
+    //            }
+    //        }
+    //    }
+    //
+    
 }

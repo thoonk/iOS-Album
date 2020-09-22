@@ -163,7 +163,6 @@
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="imageView" destination="Qd8-1P-Ipl" id="291-lW-l9E"/>
-                                            <segue destination="1AZ-Yt-dnj" kind="show" identifier="toAsset" id="TwA-vL-ybB"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -185,7 +184,11 @@
                     <toolbarItems>
                         <barButtonItem title="Item" systemItem="action" id="raC-Jp-4DM"/>
                         <barButtonItem title="최신순/과거순" width="335.5" id="X74-Bc-ZA4"/>
-                        <barButtonItem systemItem="trash" id="1LY-ik-st7"/>
+                        <barButtonItem systemItem="trash" id="1LY-ik-st7">
+                            <connections>
+                                <action selector="trashBarButton:" destination="3c8-nq-3mI" id="tdS-zI-XRr"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="W36-KG-OQq">
                         <barButtonItem key="rightBarButtonItem" title="선택" id="e4h-4v-fkh"/>
@@ -202,16 +205,16 @@
             </objects>
             <point key="canvasLocation" x="1809" y="104"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="KIY-y7-jsi">
             <objects>
-                <viewController id="1AZ-Yt-dnj" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="toDetail" id="1AZ-Yt-dnj" customClass="DetailViewController" customModule="iOS_ProjectD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WRT-X6-ihj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0w-7V-OfT">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="brd-0G-CJ4"/>
@@ -230,6 +233,9 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="8Ph-QW-VlI"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="i0w-7V-OfT" id="kCK-z7-4ic"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUR-7Q-mDY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
