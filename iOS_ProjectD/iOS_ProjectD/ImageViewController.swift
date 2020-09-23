@@ -30,7 +30,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     var sortCheck: Bool = false
     // imageCell 터치 시 show되는 것을 막기 위함
     var selectCheck: Bool = false
-    // 삭제할 이미지 인덱스
+    // 선택한 이미지 인덱스
     var selectIndex = [Int]()
     
     override func viewDidLoad() {
@@ -100,8 +100,9 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
         
         
-//        guard asset.count > 0 else { return }
+       guard selectedImages.count > 0 else { return }
         
+        // UIActivityViewController를 통한 shareAction 구현
         let activityViewController = UIActivityViewController(activityItems: selectedImages, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
@@ -170,6 +171,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.collectionView.reloadData()
     }
     
+    // shareAction을 위한 PHAsset에서 UIImage로 변환 작업
     func getImageFromPHAsset(asset: PHAsset) -> UIImage{
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
