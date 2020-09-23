@@ -182,11 +182,19 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Item" systemItem="action" id="raC-Jp-4DM"/>
-                        <barButtonItem title="최신순/과거순" width="335.5" id="X74-Bc-ZA4"/>
+                        <barButtonItem title="Item" systemItem="action" id="raC-Jp-4DM">
+                            <connections>
+                                <action selector="shareBarButtonAction:" destination="3c8-nq-3mI" id="Idg-uC-IaF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="과거순" width="335.5" id="X74-Bc-ZA4">
+                            <connections>
+                                <action selector="sortBarButtonAction:" destination="3c8-nq-3mI" id="Pzx-ut-EbO"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem systemItem="trash" id="1LY-ik-st7">
                             <connections>
-                                <action selector="trashBarButton:" destination="3c8-nq-3mI" id="tdS-zI-XRr"/>
+                                <action selector="trashBarButtonAction:" destination="3c8-nq-3mI" id="e14-Kp-DZK"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -197,7 +205,7 @@
                     <connections>
                         <outlet property="actionBarButtonItem" destination="raC-Jp-4DM" id="QBg-t6-E43"/>
                         <outlet property="collectionView" destination="siv-U0-3dD" id="ZRH-Kp-WXZ"/>
-                        <outlet property="sortBarButtonItem" destination="X74-Bc-ZA4" id="37d-Fe-Ybn"/>
+                        <outlet property="sortBarButtonItem" destination="X74-Bc-ZA4" id="2Uz-3s-Q39"/>
                         <outlet property="trashBarButtonItem" destination="1LY-ik-st7" id="SOz-Uq-FSh"/>
                     </connections>
                 </viewController>

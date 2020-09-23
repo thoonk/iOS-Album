@@ -18,7 +18,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     var images: PHFetchResult<PHAsset>!
     var albumName: String?
-    var albumIndex: Int?
+    var albumIndex: Int!
     
     let cellIdentifier: String = "imageCell"
     let imageManager: PHCachingImageManager = PHCachingImageManager()
@@ -26,10 +26,12 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     // navigationbar right item button
     var multipleSelectButtonItem: UIBarButtonItem!
+    // 과거순(true)/최신순(false) 정렬
+    var sortCheck: Bool = false
     // imageCell 터치 시 show되는 것을 막기 위함
     var selectCheck: Bool = false
     // 삭제할 이미지 인덱스
-    var delIndex = [Int]()
+    var selectIndex = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,8 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationItem.rightBarButtonItem = multipleSelectButtonItem
     }
     
+    //MARK: - barButtonItem 설정
+    
     // 네비게이션바 선택 버튼
     @objc func selectAction(_ sender: UIBarButtonItem) -> Void{
         self.selectCheck = true
@@ -78,14 +82,80 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationItem.rightBarButtonItem = multipleSelectButtonItem
         
         self.collectionView.allowsMultipleSelection = false
-        delIndex.removeAll()
+        selectIndex.removeAll()
+        self.navigationItem.title = albumName
         self.collectionView.reloadData()
     }
     
-    @IBAction func trashBarButton(_ sender: UIBarButtonItem){
+    @IBAction func shareBarButtonAction(_ sender: UIBarButtonItem){
+        
+        //var assetArray = [PHAsset]()
+        var asset = PHAsset()
+        var image: UIImage
+        var selectedImages: [UIImage] = []
+        for i in selectIndex {
+            asset = images[i]
+            image = getImageFromPHAsset(asset: asset)
+            selectedImages.append(image)
+        }
+        
+        
+//        guard asset.count > 0 else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: selectedImages, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    // 정렬용 navigationBarButtonItem
+    @IBAction func sortBarButtonAction(_ sender: UIBarButtonItem){
+        
+        sortCheck = !sortCheck
+        
+        if !sortCheck { // 과거순
+            sortBarButtonItem.title = "최신순"
+            let rvsCreationDateFet = PHFetchOptions()
+            rvsCreationDateFet.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            
+            if albumName == "Camera Roll"{
+                let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+                guard let album: PHAssetCollection = cameraRoll.firstObject else{ return }
+                images = PHAsset.fetchAssets(in: album, options: rvsCreationDateFet)
+            } else {
+                let lstFetchOptions = PHFetchOptions()
+                lstFetchOptions.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+                
+                let albumList: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: lstFetchOptions)
+                
+                let album: PHAssetCollection = albumList.object(at: albumIndex - 1)
+                images = PHAsset.fetchAssets(in: album, options: rvsCreationDateFet)
+            }
+        } else{ // 최신순
+            sortBarButtonItem.title = "과거순"
+            let creationDateFet = PHFetchOptions()
+            creationDateFet.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            
+            if albumName == "Camera Roll"{
+                let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+                guard let album: PHAssetCollection = cameraRoll.firstObject else{ return }
+                images = PHAsset.fetchAssets(in: album, options: creationDateFet)
+            } else{
+                let lstFetchOptions = PHFetchOptions()
+                lstFetchOptions.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+                
+                let albumList: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: lstFetchOptions)
+                
+                let album: PHAssetCollection = albumList.object(at: albumIndex - 1)
+                images = PHAsset.fetchAssets(in: album, options: creationDateFet)
+            }
+        }
+        collectionView.reloadData()
+    }
+    
+    @IBAction func trashBarButtonAction(_ sender: UIBarButtonItem){
         var asset = [PHAsset]()
         
-        for i in delIndex {
+        for i in selectIndex {
             asset.append(images[i])
         }
         
@@ -97,8 +167,21 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationItem.hidesBackButton = false
         self.navigationItem.rightBarButtonItem = multipleSelectButtonItem
         self.collectionView.allowsMultipleSelection = false
+        self.collectionView.reloadData()
     }
     
+    func getImageFromPHAsset(asset: PHAsset) -> UIImage{
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        var image = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: option, resultHandler: {(result, info) -> Void in
+            image = result!
+        })
+        return image
+    }
+    
+    //MARK: - collectionView 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count
     }
@@ -136,8 +219,8 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
             detailView.detailAsset = images[indexPath.item]
             self.navigationController?.pushViewController(nextController, animated: true)
         } else{
-            if !delIndex.contains(indexPath.item){
-                delIndex.append(indexPath.item)
+            if !selectIndex.contains(indexPath.item){
+                selectIndex.append(indexPath.item)
             }
             // 다중 선택한 cell 흐리게 함
             collectionView.cellForItem(at: indexPath)?.alpha = 0.5
@@ -147,9 +230,9 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.alpha = 1
         
-        if !delIndex.isEmpty{
-            let index: Int! = delIndex.firstIndex(of: indexPath.item)
-            delIndex.remove(at: index)
+        if !selectIndex.isEmpty{
+            let index: Int! = selectIndex.firstIndex(of: indexPath.item)
+            selectIndex.remove(at: index)
         }
     }
     
@@ -162,33 +245,4 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.collectionView.reloadData()
         }
     }
-    
-    
-    //    // MARK: - Navigation
-    //
-    //    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        // Get the new view controller using segue.destination.
-    //        // Pass the selected object to the new view controller.
-    //        if selectCheck == true{
-    //            if segue.identifier == "toDetail"{
-    //                guard let nextController: DetailViewController = segue.destination as? DetailViewController else{
-    //                    return
-    //                }
-    //
-    //                guard let cell: ImagesCollectionViewCell = sender as? ImagesCollectionViewCell else{
-    //                    return
-    //                }
-    //
-    //                guard let index: IndexPath = self.collectionView.indexPath(for: cell) else{
-    //                    return
-    //                }
-    //
-    //                nextController.detailImage = cell.imageView.image
-    //                nextController.detailAsset = images[index.item]
-    //            }
-    //        }
-    //    }
-    //
-    
 }
