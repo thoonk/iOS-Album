@@ -17,10 +17,16 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        imageView.image = detailImage
+        
     }
     
+    @IBAction func trashButtonAction(_ sender: UIBarButtonItem){
+        PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets([self.detailAsset] as NSArray)}, completionHandler: nil)
+        
+        self.navigationController?.popViewController(animated: true)
+    }
 
  
 
