@@ -8,17 +8,27 @@
 import UIKit
 import Photos
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UIScrollViewDelegate{
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var detailImage: UIImage!
     var detailAsset: PHAsset!
 
+    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView.image = detailImage
+        imageManager.requestImage(for: detailAsset,
+                                  targetSize: CGSize(width: detailAsset.pixelWidth, height: detailAsset.pixelHeight),
+                                  contentMode: .aspectFill,
+                                  options: nil,
+                                  resultHandler: {image, _ in self.imageView.image = image})
+
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 3.0
         
     }
     
@@ -27,7 +37,9 @@ class DetailViewController: UIViewController {
         
         self.navigationController?.popViewController(animated: true)
     }
-
- 
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
 
 }

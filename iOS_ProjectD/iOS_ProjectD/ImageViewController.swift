@@ -87,6 +87,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.collectionView.reloadData()
     }
     
+    // 네비게이션바 공유 기능 버튼
     @IBAction func shareBarButtonAction(_ sender: UIBarButtonItem){
         
         //var assetArray = [PHAsset]()
@@ -153,6 +154,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         collectionView.reloadData()
     }
     
+    // 네비게이션바 삭제 버튼
     @IBAction func trashBarButtonAction(_ sender: UIBarButtonItem){
         var asset = [PHAsset]()
         
@@ -195,7 +197,7 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         let image: PHAsset = images.object(at: indexPath.item)
         
-        imageManager.requestImage(for: image, targetSize: CGSize(width: half, height: half), contentMode: .aspectFill, options: nil, resultHandler: {image,  _ in
+        imageManager.requestImage(for: image, targetSize: CGSize(width: half, height: half), contentMode: .aspectFit, options: nil, resultHandler: {image,  _ in
             cell.imageView?.image = image
         })
         
@@ -216,8 +218,8 @@ class ImageViewController: UIViewController, UICollectionViewDataSource, UIColle
             guard let cell: ImagesCollectionViewCell = collectionView.cellForItem(at: indexPath) as? ImagesCollectionViewCell else {
                 return
             }
-            detailView.detailImage = cell.imageView.image
             
+            detailView.detailImage = cell.imageView.image
             detailView.detailAsset = images[indexPath.item]
             self.navigationController?.pushViewController(nextController, animated: true)
         } else{

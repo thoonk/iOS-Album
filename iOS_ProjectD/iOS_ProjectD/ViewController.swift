@@ -38,7 +38,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.albumNameLabel.text = assetName[indexPath.item]
         cell.albumCountLabel.text = String(assetCount[indexPath.item])
         
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: half, height: half), contentMode: .aspectFill, options: nil, resultHandler: {asset, _ in cell.albumImageView?.image = asset})
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: half, height: half), contentMode: .aspectFit, options: nil, resultHandler: {asset, _ in cell.albumImageView?.image = asset})
         
         return cell
     }
@@ -131,6 +131,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             albumAsset.append(PHAsset.fetchAssets(in: album[i], options: fetchOptions))
             assetCount.append(albumAsset[i+1].count)
             assetName.append(album[i].localizedTitle!)
+            print("\(i)번째 배열 \(album[i].localizedTitle!)의 사진 개수 \(albumAsset[i+1].count)")
         }
     }
     
