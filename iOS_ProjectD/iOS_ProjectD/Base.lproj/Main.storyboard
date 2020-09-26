@@ -221,7 +221,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XwY-7L-ug3">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="XwY-7L-ug3">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B0I-is-nrl">
@@ -255,7 +255,11 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem systemItem="action" id="Mb3-gS-wcg"/>
+                        <barButtonItem systemItem="action" id="Mb3-gS-wcg">
+                            <connections>
+                                <action selector="shareButtonAction:" destination="1AZ-Yt-dnj" id="Ecf-UC-CGI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem title="Item" image="heart" catalog="system" width="349.5" id="wh2-K3-PTW"/>
                         <barButtonItem systemItem="trash" id="SjH-X1-hB6">
                             <connections>
