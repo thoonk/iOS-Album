@@ -45,6 +45,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		088C61B1252F164C00394262 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				080CDC112518A1B10066B4FC /* ImagesCollectionViewCell.swift */,
+				0805110C2514F85000898C96 /* AlbumCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		088C61B2252F168500394262 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				08A91F592514E450000EED18 /* ViewController.swift */,
+				08B17EEC2517886B00337544 /* ImageViewController.swift */,
+				089E85D3251A2A12008C48C1 /* DetailViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
 		08A91F492514E450000EED18 = {
 			isa = PBXGroup;
 			children = (
@@ -64,14 +83,11 @@
 		08A91F542514E450000EED18 /* iOS_ProjectD */ = {
 			isa = PBXGroup;
 			children = (
+				088C61B2252F168500394262 /* View Controller */,
+				088C61B1252F164C00394262 /* View */,
 				08A91F552514E450000EED18 /* AppDelegate.swift */,
 				08A91F572514E450000EED18 /* SceneDelegate.swift */,
-				08A91F592514E450000EED18 /* ViewController.swift */,
-				08B17EEC2517886B00337544 /* ImageViewController.swift */,
-				089E85D3251A2A12008C48C1 /* DetailViewController.swift */,
-				080CDC112518A1B10066B4FC /* ImagesCollectionViewCell.swift */,
 				08A91F5B2514E450000EED18 /* Main.storyboard */,
-				0805110C2514F85000898C96 /* AlbumCollectionViewCell.swift */,
 				08A91F5E2514E451000EED18 /* Assets.xcassets */,
 				08A91F602514E451000EED18 /* LaunchScreen.storyboard */,
 				08A91F632514E451000EED18 /* Info.plist */,
