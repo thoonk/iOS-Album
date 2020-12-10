@@ -1,5 +1,5 @@
-# IOS_BoostCourse4
-## Album App. (iOS_ProjectD)
+# iOS
+## Album App. 
 
 Using Photos framework to create an application that shows photos from my photo album in collectionView.  
 Use Collection View to display a list of pictures and delete selected pictures and change the criteria by which you want to sort pictures.  
